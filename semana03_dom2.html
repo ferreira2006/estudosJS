@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo com DOM Completo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #mensagem {
+      font-weight: bold;
+      margin: 15px;
+    }
+    .cor-gerada {
+      padding: 5px 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="titulo">Botão troca cor de fundo</h1>
+  <p id="mensagem">Clique no botão para mudar a cor de fundo.</p>
+  <button id="botao">Clique aqui</button>
+  <button id="limpar">Limpar histórico</button>
+  
+  <h2>Histórico de cores:</h2>
+  <div id="historico"></div>
+
+  <script>
+    // ===== Seleção de elementos com DOM =====
+    const titulo = document.getElementById("titulo"); 
+    const mensagem = document.querySelector("#mensagem"); 
+    const botao = document.querySelector("#botao"); 
+    const limpar = document.querySelector("#limpar"); 
+    const historico = document.querySelector("#historico"); 
+
+    // ===== Função para gerar cor aleatória =====
+    function corAleatoria() {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // ===== Evento de clique para trocar cor =====
+    botao.addEventListener("click", () => {
+      const cor = corAleatoria();
+
+      // Alterando estilo do body
+      document.body.style.backgroundColor = cor;
+
+      // Alterando texto dinamicamente
+      mensagem.textContent = `Cor aplicada: ${cor}`;
+
+      // Criando elemento dinamicamente e adicionando ao histórico
+      const item = document.createElement("span");
+      item.textContent = cor;
+      item.classList.add("cor-gerada");
+      item.style.backgroundColor = cor;
+      historico.appendChild(item);
+    });
+
+    // ===== Evento de clique para limpar histórico =====
+    limpar.addEventListener("click", () => {
+      // Remove todos os elementos dentro de #historico
+      historico.innerHTML = "";
+      mensagem.textContent = "Histórico limpo!";
+    });
+
+    // ===== Evento de mouseover no título =====
+    titulo.addEventListener("mouseover", () => {
+      titulo.style.color = "blue";
+      titulo.textContent = "Passei o mouse!";
+    });
+
+    titulo.addEventListener("mouseout", () => {
+      titulo.style.color = "black";
+      titulo.textContent = "Botão troca cor de fundo";
+    });
+  </script>
+</body>
+</html>
+

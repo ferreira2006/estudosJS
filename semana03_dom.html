@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo com DOM e Evento</title>
+</head>
+<body>
+  <h1>Botão troca cor de fundo</h1>
+  <p id="mensagem">Clique no botão para mudar a cor de fundo.</p>
+  <button id="botao">Clique aqui</button>
+
+  <script>
+    const botao = document.getElementById("botao");
+    
+  function corAleatoria() {
+      // Gera valores entre 0 e 255 para RGB
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    botao.addEventListener("click", () => {
+      document.body.style.backgroundColor = corAleatoria();
+    });
+  </script>
+</body>
+</html>
