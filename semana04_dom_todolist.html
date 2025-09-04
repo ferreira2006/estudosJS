@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tarefas</title>
+</head>
+<body>
+  <h1>Lista de Tarefas</h1>
+  
+  <!-- Input para digitar uma tarefa -->
+  <input type="text" id="inputTarefa" placeholder="Digite uma tarefa">
+  
+  <!-- Botão que adiciona uma nova tarefa na lista -->
+  <button id="adicionar">Adicionar</button>
+  
+  <!-- Botão que limpa TODAS as tarefas -->
+  <button id="limpar">Limpar tudo</button>
+  
+  <!-- 
+    <ul> (unordered list) representa uma lista não ordenada.
+    Só pode ter <li> (list items) como filhos diretos. 
+    Aqui, será preenchida dinamicamente via JavaScript.
+  -->
+  <ul id="lista"></ul>
+  
+  <script>
+    // Captura dos elementos do DOM usando seus IDs.
+    // Cada const referencia um nó da árvore do DOM.
+    const btAdicionar = document.getElementById("adicionar");
+    const btlimpar = document.getElementById("limpar");
+    const inputTarefa = document.getElementById("inputTarefa");
+    const lista = document.querySelector("#lista"); 
+
+    // Adiciona um ouvinte de evento no botão "Adicionar".
+    // Esse padrão (addEventListener) é a forma moderna e recomendada.
+    btAdicionar.addEventListener("click", ()=> {        
+        adicionarTarefa(inputTarefa.value); // passa o valor digitado para a função
+        inputTarefa.value = ""; // limpa o input depois de adicionar
+    })
+
+    // Função responsável por criar dinamicamente a tarefa
+    function adicionarTarefa(tarefa){
+        // Evita adicionar tarefas vazias (boa prática de validação)
+        if (tarefa === "") return;
+
+        // Cria um <li> (list item) → cada tarefa é representada como um item da lista
+        const item = document.createElement("li");
+        item.textContent = tarefa; // insere o texto da tarefa dentro do <li>
+
+        // Cria um botão para remover essa tarefa específica
+        const btRemover = document.createElement("button");
+        btRemover.textContent = "❌"; // ícone de remover
+        btRemover.style.marginLeft = "10px"; // espaço entre o texto da tarefa e o botão
+
+        // Evento do botão de remover:
+        // remove o próprio <li> da árvore do DOM quando clicado
+        btRemover.addEventListener("click", () =>{
+            item.remove();
+        });
+
+        // Insere o botão dentro do <li>
+        item.appendChild(btRemover);
+        
+        // Insere o <li> (com tarefa + botão) dentro da <ul>
+        lista.appendChild(item);
+    }
+
+    // Evento do botão "Limpar tudo":
+    // Zera o conteúdo interno da <ul> removendo todos os <li> de uma vez
+    btlimpar.addEventListener("click", ()=> {
+        lista.innerHTML = "";
+    });
+  </script>
+</body>
+</html>
