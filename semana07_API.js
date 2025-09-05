@@ -49,3 +49,4 @@ fetch(APIURL)
 }
 
 pegarPokemon();
+
