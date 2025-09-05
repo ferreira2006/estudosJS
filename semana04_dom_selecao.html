@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo DOM Seleção</title>
+</head>
+<body>
+  <h1>Exemplo de Seleção DOM</h1>
+
+  <!-- Elemento único -->
+  <button id="btnId">Botão ID</button>
+
+  <!-- Vários elementos com a mesma classe -->
+  <button class="btnClasse">Botão Classe 1</button>
+  <button class="btnClasse">Botão Classe 2</button>
+
+  <!-- Elementos por tag -->
+  <p>Parágrafo 1</p>
+  <p>Parágrafo 2</p>
+
+  <script>
+    // 1️⃣ Seleção por ID
+    const botaoId = document.getElementById("btnId");
+    botaoId.addEventListener("click", () => {
+      alert("Clicou no botão pelo ID!");
+    });
+
+    // 2️⃣ Seleção por classe
+    const botoesClasse = document.getElementsByClassName("btnClasse");
+    // HTMLCollection → precisa usar loop ou Array.from
+    Array.from(botoesClasse).forEach((btn, i) => {
+      btn.addEventListener("click", () => {
+        alert(`Clicou no botão da classe ${i + 1}`);
+      });
+    });
+
+    // 3️⃣ Seleção por tag
+    const paragrafos = document.getElementsByTagName("p");
+    for (let p of paragrafos) {
+      p.style.color = "blue"; // altera estilo de todos
+    }
+
+    // 4️⃣ querySelector (primeiro elemento que combina)
+    const primeiroBotao = document.querySelector(".btnClasse");
+    primeiroBotao.style.fontWeight = "bold";
+
+    // 5️⃣ querySelectorAll (todos os elementos que combinam)
+    const todosParagrafos = document.querySelectorAll("p");
+    todosParagrafos.forEach(p => p.style.backgroundColor = "lightyellow");
+
+  </script>
+</body>
+</html>
